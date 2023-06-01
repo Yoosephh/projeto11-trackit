@@ -1,0 +1,1 @@
+export const logo = <img src="./public/images/Logo_PNG.png" alt="logo" />
