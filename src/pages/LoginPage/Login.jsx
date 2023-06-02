@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { LevelContext } from "../../LevelContext";
 import CustomInput from "../../components/CustomInput";
+import CustomButton from "../../components/CustomButton";
 
 export default function Login() {
     const {setUser} = useContext(LevelContext)
@@ -50,9 +51,7 @@ export default function Login() {
                         }))}/>
                     </div>
                     <div>
-                        <button 
-                        type="submit"
-                        disabled={loading}>Entrar</button>
+                        <CustomButton message="Entrar" disabled={loading}/>
                     </div>
                 </form>
                 

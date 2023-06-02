@@ -21,6 +21,7 @@ export default function App() {
       <LevelContext.Provider value={{user, setUser}}>
       
       {currentLocation.pathname != "/" && currentLocation.pathname != "/cadastro" && <> <Header /> <Footer /> </>}
+      
         <Routes>
           <Route path="/" element={<Login />}/>
           <Route path="/cadastro" element={<Register />}/>

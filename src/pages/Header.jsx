@@ -15,6 +15,11 @@ export default function Header(){
 }
 
 const ContainerDiv = styled.div`
+    width: 100%;
+    position: fixed;
+    left: 0;
+    z-index: 99;
+    top: 0;
     background: #126BA5;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
     display: flex;

@@ -1,29 +1,27 @@
 import axios from "axios"
 import styled from "styled-components"
 import { logo } from "../../../public/images/imgs"
-import React from "react";
+import {useState} from "react";
 import { useNavigate } from "react-router-dom";
+import CustomButton from "../../components/CustomButton";
+import CustomInput from "../../components/CustomInput";
 
 export default function Register() {
-    const [email, setEmail] = React.useState("");
-    const [password, setPassword] = React.useState("");
-    const [name, setName]= React.useState("");
-    const [img, setImg] = React.useState("");
+    const [login, setLogin] = useState({
+        email: "",
+        password:"",
+        image: "",
+        name: ""
+    })
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false)
 
     function register(e){
         e.preventDefault();
-
-        const user = {
-            email: email,
-            name: name,
-            image: img,
-            password: password
-        }
-
-        axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", user)
+        axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", login)
         .then(()=> navigate("/"))
         .catch(error => alert(error.response.data.message))
+        .finally(()=> setLoading(false))
     }
 
     return (
@@ -35,43 +33,31 @@ export default function Register() {
             <FormDiv>
                 <form onSubmit={register}>
                     <div>
-                        <input 
-                        required
-                        type="email" 
-                        placeholder="Email"
-                        id="email"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}/>
+                        <CustomInput required type="email" placeholder="Email" disabled={loading} onChangeValue={(email) => setLogin(prevValue =>( {
+                                ...prevValue,
+                                email
+                            }))}/>
                     </div>
                     <div>
-                        <input 
-                        required
-                        type="password" 
-                        placeholder="Senha"
-                        id="senha" 
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}/>
+                        <CustomInput required type="password" placeholder="Senha" disabled={loading} onChangeValue={(password) => setLogin(prevValue =>( {
+                                ...prevValue,
+                                password
+                            }))}/>
                     </div>
                     <div>
                     <div>
-                        <input 
-                        required
-                        type="text"
-                        placeholder="Nome"
-                        id="name"
-                        value={name}
-                        onChange={e => setName(e.target.value)}/>
+                        <CustomInput required type="text" placeholder="Nome" disabled={loading} onChangeValue={(name) => setLogin(prevValue =>( {
+                                ...prevValue,
+                                name
+                            }))}/>
                     </div>
                     <div>
-                        <input 
-                        required
-                        type="" 
-                        placeholder="Foto"
-                        id="img"
-                        value={img}
-                        onChange={e => setImg(e.target.value)}/>
+                        <CustomInput required type="URL" placeholder="Foto" disabled={loading} onChangeValue={(image) => setLogin(prevValue =>( {
+                                ...prevValue,
+                                image
+                            }))}/>
                     </div>
-                        <button className="btnSubmit" type="submit">Entrar</button>
+                        <CustomButton disabled={loading} message="Cadastrar" />
                     </div>
                 </form>
                 

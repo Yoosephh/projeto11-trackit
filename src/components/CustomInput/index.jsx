@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
 export default function CustomInput( { required, type, placeholder, disabled, onChangeValue } ) {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState("");
+
   useEffect(()=>{
     onChangeValue(value)
   }, [value])
