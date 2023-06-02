@@ -7,9 +7,9 @@ export default function Header(){
     const {user} = useContext(LevelContext)
     console.log(user)
     return(
-        <ContainerDiv >
+        <ContainerDiv data-test="header" >
             <p>TrackIt</p>
-            <img src={user.image}/>
+            <img data-test="avatar" src={user.image}/>
         </ContainerDiv>
     )
 }

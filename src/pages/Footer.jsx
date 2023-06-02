@@ -7,7 +7,7 @@ export default function Footer() {
   const navigate = useNavigate();
   function Example(props) {
     return (
-      <div style={{ marginBottom: 100 , position:"fixed" }}>
+      <div data-test="today-link" onClick={()=> navigate("/hoje")} style={{ marginBottom: 100 , position:"fixed" }}>
         <hr style={{ border: "2px solid #ddd",  }} />
         <div style={{display: "flex"  }}>
           <div style={{ width: "30%" }}>{props.children}</div>
@@ -20,11 +20,11 @@ export default function Footer() {
     );
   }
     return (
-      <FooterContainer >
-        <div onClick={() => navigate()}>
+      <FooterContainer data-test="menu" >
+        <div data-test="habit-link" onClick={() => navigate('/habitos')}>
           <p>Hábitos</p>
         </div>
-        <Example label="" >
+        <Example label=""  >
           <CircularProgressbar
             className="CircleBar"
             value={89}
@@ -40,7 +40,7 @@ export default function Footer() {
           />
         </Example>
 
-        <div>
+        <div onClick={()=> navigate("/historico")} data-test="history-link">
           <p>Histórico</p>
         </div>
       </FooterContainer>

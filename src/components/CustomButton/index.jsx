@@ -2,10 +2,11 @@ import { useState } from "react"
 import { ThreeDots } from "react-loader-spinner";
 import styled from "styled-components";
 
-export default function CustomButton({disabled, message}){
+export default function CustomButton({disabled, message, data_test}){
   const [value, setValue] = useState("");
   return(
     <Button 
+      data-test={data_test}
       type="submit"
       disabled={disabled}
     > {disabled === true ? <ThreeDots 

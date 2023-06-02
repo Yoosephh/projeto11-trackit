@@ -41,25 +41,25 @@ export default function Login() {
             <FormDiv >
                 <form onSubmit={handleLogin}>
                     <div className="email">
-                        <CustomInput required type="email" placeholder="Email" disabled={loading} onChangeValue={(email) => setLogin(prevValue =>( {
+                        <CustomInput data_test="email-input" required type="email" placeholder="Email" disabled={loading} onChangeValue={(email) => setLogin(prevValue =>( {
                             ...prevValue,
                             email
                         }))}/>
                     </div>
                     <div className="password">
-                        <CustomInput required type="password" placeholder="Senha" disabled={loading} onChangeValue={(password) => setLogin(prevValue =>( {
+                        <CustomInput  data_test="password-input" required type="password" placeholder="Senha" disabled={loading} onChangeValue={(password) => setLogin(prevValue =>( {
                             ...prevValue,
                             password
                         }))}/>
                     </div>
                     <div>
-                        <CustomButton message="Entrar" disabled={loading}/>
+                        <CustomButton message="Entrar" disabled={loading} data_test="login-btn"/>
                     </div>
                 </form>
                 
             </FormDiv>
             
-            <h1 onClick={() => navigate("/cadastro")}>
+            <h1 data-test="signup-link" onClick={() => navigate("/cadastro")}>
                 Não tem uma conta? Cadastre-se!
             </h1>
         </AppContainer>

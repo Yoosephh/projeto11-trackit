@@ -33,36 +33,36 @@ export default function Register() {
             <FormDiv>
                 <form onSubmit={register}>
                     <div>
-                        <CustomInput required type="email" placeholder="Email" disabled={loading} onChangeValue={(email) => setLogin(prevValue =>( {
+                        <CustomInput data_test="email-input" required type="email" placeholder="Email" disabled={loading} onChangeValue={(email) => setLogin(prevValue =>( {
                                 ...prevValue,
                                 email
                             }))}/>
                     </div>
                     <div>
-                        <CustomInput required type="password" placeholder="Senha" disabled={loading} onChangeValue={(password) => setLogin(prevValue =>( {
+                        <CustomInput data_test="password-input" required type="password" placeholder="Senha" disabled={loading} onChangeValue={(password) => setLogin(prevValue =>( {
                                 ...prevValue,
                                 password
                             }))}/>
                     </div>
                     <div>
                     <div>
-                        <CustomInput required type="text" placeholder="Nome" disabled={loading} onChangeValue={(name) => setLogin(prevValue =>( {
+                        <CustomInput data_test="user-name-input" required type="text" placeholder="Nome" disabled={loading} onChangeValue={(name) => setLogin(prevValue =>( {
                                 ...prevValue,
                                 name
                             }))}/>
                     </div>
                     <div>
-                        <CustomInput required type="URL" placeholder="Foto" disabled={loading} onChangeValue={(image) => setLogin(prevValue =>( {
+                        <CustomInput data_test="user-image-input" required type="URL" placeholder="Foto" disabled={loading} onChangeValue={(image) => setLogin(prevValue =>( {
                                 ...prevValue,
                                 image
                             }))}/>
                     </div>
-                        <CustomButton disabled={loading} message="Cadastrar" />
+                        <CustomButton data-test="signup-btn" disabled={loading} message="Cadastrar" />
                     </div>
                 </form>
                 
             </FormDiv>
-            <h1 onClick={() => navigate("/")}>
+            <h1 data-test="login-link" onClick={() => navigate("/")}>
                 Já tem uma conta? Faça login!
             </h1>
         </AppContainer>

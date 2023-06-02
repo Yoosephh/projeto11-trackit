@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function CustomInput( { required, type, placeholder, disabled, onChangeValue } ) {
+export default function CustomInput( { required, type, placeholder, disabled, onChangeValue, data_test } ) {
   const [value, setValue] = useState("");
 
   useEffect(()=>{
@@ -9,6 +9,7 @@ export default function CustomInput( { required, type, placeholder, disabled, on
 
   return (
     <input
+      data-test={data_test}
       required={required}
       disabled={disabled}
       type={type}
