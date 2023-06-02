@@ -1,11 +1,13 @@
 import { useContext, useState } from "react";
-import { logo } from "../../../public/images/imgs"
 import styled from "styled-components";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { LevelContext } from "../../LevelContext";
 import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
+import logo from "../../../public/images/imgs";
+
+
 
 export default function Login() {
     const {setUser} = useContext(LevelContext)
@@ -33,8 +35,7 @@ export default function Login() {
     return (
         <AppContainer>
             <Logo>
-            <img src="../../../public/images/Logo_PNG.png" alt="logo" />
-                {logo}
+                {logo()}
             </Logo>
             
             <FormDiv >

@@ -1,1 +1,3 @@
-export const logo = <img src="/public/images/Logo_PNG.png" alt="logo" />
+export default function logo() {
+  return <img src="/images/logo.png" alt="logo" />
+} 
