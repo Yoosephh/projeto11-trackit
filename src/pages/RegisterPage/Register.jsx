@@ -1,10 +1,10 @@
 import axios from "axios"
 import styled from "styled-components"
-import  logo  from "../../../public/images/imgs"
 import {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../../components/CustomButton";
 import CustomInput from "../../components/CustomInput";
+import logo from "../../../public/images/imgs";
 
 export default function Register() {
     const [login, setLogin] = useState({
