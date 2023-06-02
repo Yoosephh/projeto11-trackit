@@ -27,6 +27,7 @@ export default function Register() {
     return (
         <AppContainer>
             <Logo>
+                <img src="../../../public/images/imgs" alt="logo" />
                 {logo}
             </Logo>
             

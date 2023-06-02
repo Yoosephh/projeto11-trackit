@@ -33,6 +33,7 @@ export default function Login() {
     return (
         <AppContainer>
             <Logo>
+            <img src="../../../public/images/imgs" alt="logo" />
                 {logo}
             </Logo>
             
