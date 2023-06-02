@@ -1,6 +1,6 @@
 import axios from "axios"
 import styled from "styled-components"
-import { logo } from "../../../public/images/imgs"
+import  logo  from "../../../public/images/imgs"
 import {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../../components/CustomButton";
