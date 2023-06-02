@@ -57,7 +57,7 @@ export default function Register() {
                                 image
                             }))}/>
                     </div>
-                        <CustomButton data-test="signup-btn" disabled={loading} message="Cadastrar" />
+                        <CustomButton data_test="signup-btn" disabled={loading} message="Cadastrar" />
                     </div>
                 </form>
                 
