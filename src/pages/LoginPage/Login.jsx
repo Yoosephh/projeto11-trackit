@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { LevelContext } from "../../LevelContext";
 import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
-import logo from "../../../public/images/imgs";
+import {logo} from "../../../public/images/imgs";
 
 
 
@@ -24,7 +24,7 @@ export default function Login() {
         setLoading(true);
         axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", login)
         .then(resp => {
-            setUser(()=> resp.data)
+            setUser(resp.data)
             navigate("/hoje")
         })
         .catch(error => alert(error.response.data.message))
@@ -66,7 +66,7 @@ export default function Login() {
     )
 }
 
-const AppContainer = styled.div`
+export const AppContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;

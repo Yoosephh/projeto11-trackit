@@ -22,7 +22,7 @@ export default function Footer() {
     return (
       <FooterContainer data-test="menu" >
         <div data-test="habit-link" onClick={() => navigate('/habitos')}>
-          <p>Hábitos</p>
+          <button>Hábitos</button>
         </div>
         <Example label=""  >
           <CircularProgressbar
@@ -41,7 +41,7 @@ export default function Footer() {
         </Example>
 
         <div onClick={()=> navigate("/historico")} data-test="history-link">
-          <p>Histórico</p>
+          <button>Histórico</button>
         </div>
       </FooterContainer>
     )
@@ -58,7 +58,8 @@ display: flex;
   width: 100%;
   background-color: #FFFFFF;
   height: 80px;
-  p {
+
+  button {
     font-family: 'Lexend Deca';
     font-style: normal;
     font-weight: 400;
@@ -66,6 +67,9 @@ display: flex;
     line-height: 22px;
     text-align: center;
     color: #52B6FF;
+    cursor: pointer;
+    border: none;
+    background: #FFFFFF;
   }
   .CircularProgressbar {
     font-family: 'Lexend Deca';
@@ -74,6 +78,11 @@ display: flex;
     font-size: "18px";
     line-height: "22px";
     text-align: 'center';
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%,-30px);
+    width: 100px;
+    cursor: pointer;
   }
   .CircleBar{
     display: flex;

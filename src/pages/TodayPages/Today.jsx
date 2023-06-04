@@ -2,9 +2,10 @@ import { useContext, useEffect } from "react";
 import { LevelContext } from "../../LevelContext";
 import styled from "styled-components";
 import axios from "axios";
+import RenderToday from "./RenderToday";
 
 export default function Today() {
-    const { user,  setUser } = useContext(LevelContext)
+    const { user,  setUser, habit, setHabit } = useContext(LevelContext)
     const config = {
         headers:{
             "Authorization": `Bearer ${user.token}`
@@ -14,17 +15,32 @@ export default function Today() {
         axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config)
         .then(resp => {setUser(prevStates => ({
             ...prevStates,
-            todayHabits: resp.data
+            todayHabits: [
+                {
+                    id: 3,
+                    name: "Acordar",
+                    done: true,
+                    currentSequence: 1,
+                    highestSequence: 1
+                },
+                {
+                    id: 4,
+                    name: "Almoçar",
+                    done: false,
+                    currentSequence: 1,
+                    highestSequence: 1
+                }
+            ]
         }))
-        console.log(user)})
+        })
         .catch(err => alert(err.response.data.message))
     }, [user.token])
     
     
-    console.log(user)
+
     return (
         <Container>
-            
+            <RenderToday />
         </Container>
     )
 
@@ -32,4 +48,5 @@ export default function Today() {
 const Container = styled.div`
     height: 100vh;
     background: #e5e5e5;
+    
 `

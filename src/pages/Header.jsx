@@ -5,7 +5,6 @@ import { LevelContext } from "../LevelContext"
 
 export default function Header(){
     const {user} = useContext(LevelContext)
-    console.log(user)
     return(
         <ContainerDiv data-test="header" >
             <p>TrackIt</p>
