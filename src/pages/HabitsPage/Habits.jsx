@@ -12,6 +12,7 @@ export default function Habits() {
   const { weekDays, name, setName} = useContext(LevelContext)
 
   function selectDays(day) {
+    console.log(userHabits, "selecionei um dia da semana")
     setUserHabits((prevState) => {
       if (prevState.days.includes(day)) {
         console.log({ ...prevState, days: prevState.days.filter((d) => d !== day) });
@@ -27,16 +28,15 @@ export default function Habits() {
 
   function submitForm(event){
     event.preventDefault();
-    const habitosAtuais = {...userHabits}
-    console.log(habitosAtuais.days, "dentro da função")
+    console.log(userHabits, "apertei para submeter o form")
 
-    if(habitosAtuais.days.length > 0){
+    if(userHabits.days.length > 0){
       alert("Thalia vc é o amor da minha vida!")
     } else {
       alert("Selecione ao menos um dia da semana!")
     }
   }
-  console.log(userHabits)
+  
   function AddHabit(){
     setCreatingHabit(
       <HabitDiv>

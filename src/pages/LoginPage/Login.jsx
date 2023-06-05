@@ -41,13 +41,13 @@ export default function Login() {
             <FormDiv >
                 <form onSubmit={handleLogin}>
                     <div className="email">
-                        <CustomInput data_test="email-input" required type="email" placeholder="Email" disabled={loading} onChangeValue={(email) => setLogin(prevValue =>( {
+                        <CustomInput name={"email"} id={"email"} data_test="email-input" required type="email" placeholder="Email" disabled={loading} onChangeValue={(email) => setLogin(prevValue =>( {
                             ...prevValue,
                             email
                         }))}/>
                     </div>
                     <div className="password">
-                        <CustomInput  data_test="password-input" required type="password" placeholder="Senha" disabled={loading} onChangeValue={(password) => setLogin(prevValue =>( {
+                        <CustomInput name={"password"} id={"password"} data_test="password-input" required type="password" placeholder="Senha" disabled={loading} onChangeValue={(password) => setLogin(prevValue =>( {
                             ...prevValue,
                             password
                         }))}/>
