@@ -17,6 +17,7 @@ export default function Register() {
     const [loading, setLoading] = useState(false)
 
     function register(e){
+        
         e.preventDefault();
         setLoading(true)
         axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", login)
