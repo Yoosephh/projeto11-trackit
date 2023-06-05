@@ -2,8 +2,12 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar"
 import styled from "styled-components"
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate } from "react-router-dom";
+import { LevelContext } from "../LevelContext";
+import { useContext } from "react";
+
 
 export default function Footer() {
+  const {counter} = useContext(LevelContext)
   const navigate = useNavigate();
   function Example(props) {
     return (
@@ -27,7 +31,7 @@ export default function Footer() {
         <Example label=""  >
           <CircularProgressbar
             className="CircleBar"
-            value={89}
+            value={counter}
             text={`Hoje`}
             background
             backgroundPadding={6}

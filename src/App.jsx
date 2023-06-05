@@ -11,27 +11,16 @@ import Header from "./pages/Header"
 import Footer from "./pages/Footer"
 
 export default function App() {
-
+  const [counter, setCounter] = useState(0);
   const [user, setUser] = useState([]);
-  const [habit, setHabit] = useState([
-    {
-      id: 1,
-      name: "Nome do hábito",
-      days: [1, 3, 5]
-    },
-    {
-      id: 2,
-      name: "Nome do hábito 2",
-      days: [1, 3, 4, 6]
-    }
-  ]);
+  const [habit, setHabit] = useState([]);
   const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
   const level = useContext(LevelContext)
   let currentLocation = useLocation();
   return (
     <>
       <GlobalStyleReset />      
-      <LevelContext.Provider value={{user, setUser, weekDays, habit, setHabit}}>
+      <LevelContext.Provider value={{user, setUser, weekDays, habit, setHabit, counter, setCounter}}>
       
       {(currentLocation.pathname != "/" && currentLocation.pathname != "/cadastro") && <> <Header /> <Footer /> </>}
       

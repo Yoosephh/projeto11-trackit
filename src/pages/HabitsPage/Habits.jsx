@@ -1,47 +1,86 @@
-import  { useContext } from "react";
+import  { useContext, useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import { LevelContext } from "../../LevelContext";
 import DisplayHabits from "./DisplayHabits";
 import CustomInput from "../../components/CustomInput";
+import axios from "axios";
 
 
 export default function Habits() {
   const [userHabits, setUserHabits] =  useState({ name:"", days: [] })
-  const [creatingHabit, setCreatingHabit] = useState([])
-  const { weekDays, name, setName} = useContext(LevelContext)
+  const [creatingHabit, setCreatingHabit] = useState(false)
+  const { weekDays, user, setHabit, habit } = useContext(LevelContext)
 
+  const config = {
+    headers:{
+        "Authorization": `Bearer ${user.token}`
+    }
+  } 
+  useEffect( () => {
+    axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
+    .then(resp => setHabit(resp.data))
+    .catch(error => alert(error.response.data.message))
+  }, [setHabit])
+  
   function selectDays(day) {
     console.log(userHabits, "selecionei um dia da semana")
-    setUserHabits((prevState) => {
-      if (prevState.days.includes(day)) {
-        console.log({ ...prevState, days: prevState.days.filter((d) => d !== day) });
-        return { ...prevState, days: prevState.days.filter((d) => d !== day) };
-      } else {
-        console.log({ ...prevState, days: [...prevState.days, day] })
-        return { ...prevState, days: [...prevState.days, day] };
-      }
+    if (userHabits.days.includes(day)) {
+      setUserHabits((prevState) => ({
+        ...prevState,
+        days: [prevState.days.filter((d) => d !== day)]
+      }));
+    } else {
+      setUserHabits((prevState) => ({
+        ...prevState,
+        days: [...prevState.days, day],
+      }));
     }
-    )
-    
   }
+  // if (userHabits.days.includes(day)){
+  //   setUserHabits((prevState) => (
+  //     {...prevState, days: [prevState.days.filter((d) => d !== day)]
+  //   }))
+  // } else {
+  //   setUserHabits((prevState) => ({ ...prevState, days: [...prevState.days, day] })
+  //   )
+  // }
 
   function submitForm(event){
     event.preventDefault();
-    console.log(userHabits, "apertei para submeter o form")
 
     if(userHabits.days.length > 0){
-      alert("Thalia vc é o amor da minha vida!")
+      axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", userHabits, config )
+      .then(() => (
+        axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
+      .then(resp => setHabit(resp.data)).catch(error => alert(error.response.data.message))
+      ))
+      .catch(error => alert(error.response.data.message))
+
+      setUserHabits({
+        name: "",
+        days: []})
+      setCreatingHabit(prevState => !prevState)
     } else {
       alert("Selecione ao menos um dia da semana!")
     }
   }
-  
-  function AddHabit(){
-    setCreatingHabit(
-      <HabitDiv>
+
+  return(
+    <HabitsDiv>
+      <div className="containerTop">
+        <p>Meus Hábitos</p>
+        <button data-test="habit-create-btn" onClick={() => setCreatingHabit(prevState => !prevState)}>+</button>
+      </div>
+      {creatingHabit && (<HabitDiv data-test="habit-create-container">
         <form onSubmit={submitForm}>
-          <CustomInput placeholder={"nome do hábito"} value={userHabits.name} type={"text"} required={true} onChangeValue={(name) => 
+          <CustomInput 
+          placeholder={"nome do hábito"} 
+          data_test={"habit-name-input"}
+          value={userHabits.name} 
+          type={"text"} 
+          required={true} 
+          onChangeValue={(name) => 
             setUserHabits(prevValue => ({ 
               ...prevValue,
               name
@@ -52,6 +91,7 @@ export default function Habits() {
             {weekDays.map((day, i) => {
               return (
                 <DayButton 
+                data-test="habit-day"
                 type="button" 
                 id={i}
                 key={i} 
@@ -63,28 +103,22 @@ export default function Habits() {
             })}
           </div>
           <div className="butns">
-            <CancelButton type="button" onClick={() => {
-              setCreatingHabit([])
+            <CancelButton 
+            data-test="habit-create-cancel-btn"
+            type="button" 
+            onClick={() => {
+              setCreatingHabit(prevState => !prevState)
               setUserHabits(prevState => ({
                 ...prevState,
                 days: []
               }))
               }}>Cancelar</CancelButton>
 
-            <SaveButton type="submit">Salvar</SaveButton>
+            <SaveButton data-test="habit-create-save-btn"
+            type="submit">Salvar</SaveButton>
           </div>
         </form>
-      </HabitDiv>
-    )
-  }
-  
-  return(
-    <HabitsDiv>
-      <div className="containerTop">
-        <p>Meus Hábitos</p>
-        <button onClick={() => AddHabit()}>+</button>
-      </div>
-      {creatingHabit}
+      </HabitDiv>)}
       <CreatedHabits>
         <DisplayHabits />
       </CreatedHabits>

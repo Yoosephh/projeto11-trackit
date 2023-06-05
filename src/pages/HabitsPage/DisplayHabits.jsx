@@ -1,35 +1,51 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import { LevelContext } from "../../LevelContext"
 import { DayButton } from "./Habits"
+import axios from "axios";
+import { HabitsCompleted } from "../TodayPages/RenderToday";
 
 export default function DisplayHabits() {
-  const {weekDays, habit, setHabit} = useContext(LevelContext);
-  
+  const {user, weekDays, habit, setHabit, counter} = useContext(LevelContext);
+  const config = {
+    headers:{
+        "Authorization": `Bearer ${user.token}`
+    }
+}
+
   function deleteHabit(index) {
-    const newHabits = habit.filter((_,i) => i !== index)
-    setHabit(newHabits)
+
+    axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit[index].id}`, config)
+    .then(()=> {
+      axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
+      .then(resp => {
+        setHabit(resp.data)})
+      .catch(error => alert(error.response.data.message))
+    })
+    .catch(err => alert(err.response.data.message))
+    
   }
 
   return (
     habit.map(({name, days}, index) => (
-      <UserHabitDiv key={index}>
-        <p className="HabitName"> {name}</p>
+      <UserHabitDiv data-test="habit-container" key={index}>
+        <p data-test="habit-name" className="HabitName"> {name}</p>
         <div className="days">
         {weekDays.map((day, i) => {
             return (
-              <DayButton type="button" 
+              <DayButton 
+              data-test="habit-day"
+              type="button" 
               id={i} 
               key={i} 
               days={days}>
-              
                 {day}
               </DayButton>
               )
             })}
         </div>
           
-        <ion-icon onClick={() => deleteHabit(index)} name="trash-outline"></ion-icon>
+        <ion-icon data-test="habit-delete-btn" onClick={() => deleteHabit(index)} name="trash-outline"></ion-icon>
       </UserHabitDiv>
     ))
     
@@ -50,6 +66,7 @@ border-radius: 5px;
   color: #666666;
 }
 ion-icon {
+  cursor:pointer;
   position: absolute;
   top: 10px;
   right: 10px;

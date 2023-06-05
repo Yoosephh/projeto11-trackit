@@ -5,7 +5,7 @@ import axios from "axios";
 import RenderToday from "./RenderToday";
 
 export default function Today() {
-    const { user,  setUser, habit, setHabit } = useContext(LevelContext)
+    const { user,  setUser } = useContext(LevelContext)
     const config = {
         headers:{
             "Authorization": `Bearer ${user.token}`
@@ -13,26 +13,10 @@ export default function Today() {
     }
     useEffect(() => {
         axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today", config)
-        .then(resp => {setUser(prevStates => ({
-            ...prevStates,
-            todayHabits: [
-                {
-                    id: 3,
-                    name: "Acordar",
-                    done: true,
-                    currentSequence: 1,
-                    highestSequence: 1
-                },
-                {
-                    id: 4,
-                    name: "Almoçar",
-                    done: false,
-                    currentSequence: 1,
-                    highestSequence: 1
-                }
-            ]
-        }))
-        })
+        .then(resp => {setUser(prevState => ({
+            ...prevState,
+            todayHabits: resp.data
+        }))})
         .catch(err => alert(err.response.data.message))
     }, [user.token])
     
