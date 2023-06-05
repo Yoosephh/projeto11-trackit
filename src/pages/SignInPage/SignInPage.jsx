@@ -18,6 +18,7 @@ export default function Register() {
 
     function register(e){
         e.preventDefault();
+        setLoading(true)
         axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", login)
         .then(()=> navigate("/"))
         .catch(error => alert(error.response.data.message))

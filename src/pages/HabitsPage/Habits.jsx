@@ -11,6 +11,7 @@ export default function Habits() {
   const [userHabits, setUserHabits] =  useState({ name:"", days: [] })
   const [creatingHabit, setCreatingHabit] = useState(false)
   const { weekDays, user, setHabit, habit } = useContext(LevelContext)
+  const [loading, setLoading] = useState(false)
 
   const config = {
     headers:{
@@ -48,15 +49,17 @@ export default function Habits() {
 
   function submitForm(event){
     event.preventDefault();
-
+    setLoading(true)
     if(userHabits.days.length > 0){
       axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", userHabits, config )
-      .then(() => (
+      .then(() => {((
         axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
-      .then(resp => setHabit(resp.data)).catch(error => alert(error.response.data.message))
-      ))
+      .then(resp => setHabit(resp.data))
       .catch(error => alert(error.response.data.message))
-
+      ))
+      setCreatingHabit(prevState => !prevState)})
+      .catch(error => alert(error.response.data.message))
+      .finally(setLoading(false))
       setUserHabits({
         name: "",
         days: []})
@@ -79,7 +82,8 @@ export default function Habits() {
           data_test={"habit-name-input"}
           value={userHabits.name} 
           type={"text"} 
-          required={true} 
+          required={true}
+          disabled={loading} 
           onChangeValue={(name) => 
             setUserHabits(prevValue => ({ 
               ...prevValue,
@@ -92,7 +96,8 @@ export default function Habits() {
               return (
                 <DayButton 
                 data-test="habit-day"
-                type="button" 
+                type="button"
+                disabled={loading} 
                 id={i}
                 key={i} 
                 days={userHabits.days}
@@ -105,7 +110,8 @@ export default function Habits() {
           <div className="butns">
             <CancelButton 
             data-test="habit-create-cancel-btn"
-            type="button" 
+            type="button"
+            disabled={loading} 
             onClick={() => {
               setCreatingHabit(prevState => !prevState)
               setUserHabits(prevState => ({
@@ -114,7 +120,9 @@ export default function Habits() {
               }))
               }}>Cancelar</CancelButton>
 
-            <SaveButton data-test="habit-create-save-btn"
+            <SaveButton
+            disabled={loading}
+            data-test="habit-create-save-btn"
             type="submit">Salvar</SaveButton>
           </div>
         </form>
