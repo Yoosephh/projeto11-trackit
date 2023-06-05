@@ -9,14 +9,15 @@ import axios from "axios";
 
 export function HabitsCompleted(){
   const { user, setCounter } = useContext(LevelContext);
-  let contador = 0
-  
+  if(user && user.todayHabits){
+    let contador = 0
     for(let i = 0; i < user.todayHabits.length; i++) {
       if(user.todayHabits[i].done) {
         contador = contador + 1;
       }
     }
     setCounter((contador / user.todayHabits.length ) * 100)
+  }
 }
 export default function RenderToday(){
   const { user,  setUser, counter, setCounter } = useContext(LevelContext);

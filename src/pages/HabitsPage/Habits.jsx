@@ -38,14 +38,6 @@ export default function Habits() {
       }));
     }
   }
-  // if (userHabits.days.includes(day)){
-  //   setUserHabits((prevState) => (
-  //     {...prevState, days: [prevState.days.filter((d) => d !== day)]
-  //   }))
-  // } else {
-  //   setUserHabits((prevState) => ({ ...prevState, days: [...prevState.days, day] })
-  //   )
-  // }
 
   function submitForm(event){
     event.preventDefault();
@@ -63,7 +55,6 @@ export default function Habits() {
       setUserHabits({
         name: "",
         days: []})
-      setCreatingHabit(prevState => !prevState)
     } else {
       alert("Selecione ao menos um dia da semana!")
     }

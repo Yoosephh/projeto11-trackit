@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { LevelContext } from "../../LevelContext";
 import styled from "styled-components";
 import axios from "axios";
-import RenderToday from "./RenderToday";
+import RenderToday, { HabitsCompleted } from "./RenderToday";
 
 export default function Today() {
     const { user,  setUser } = useContext(LevelContext)
@@ -24,6 +24,7 @@ export default function Today() {
 
     return (
         <Container>
+            {HabitsCompleted()}
             <RenderToday />
         </Container>
     )
