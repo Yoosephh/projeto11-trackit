@@ -1,12 +1,11 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext } from "react"
 import styled from "styled-components"
 import { LevelContext } from "../../LevelContext"
 import { DayButton } from "./Habits"
 import axios from "axios";
-import { HabitsCompleted } from "../TodayPages/RenderToday";
 
 export default function DisplayHabits() {
-  const {user, weekDays, habit, setHabit, counter} = useContext(LevelContext);
+  const {user, weekDays, habit, setHabit} = useContext(LevelContext);
   const config = {
     headers:{
         "Authorization": `Bearer ${user.token}`

@@ -5,6 +5,8 @@ import { LevelContext } from "../../LevelContext";
 import DisplayHabits from "./DisplayHabits";
 import CustomInput from "../../components/CustomInput";
 import axios from "axios";
+import { ThreeDots } from "react-loader-spinner";
+
 
 
 export default function Habits() {
@@ -12,18 +14,20 @@ export default function Habits() {
   const [creatingHabit, setCreatingHabit] = useState(false)
   const { weekDays, user, setHabit, habit } = useContext(LevelContext)
   const [loading, setLoading] = useState(false)
-
+  
   const config = {
     headers:{
         "Authorization": `Bearer ${user.token}`
     }
   } 
+  
   useEffect( () => {
     axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
     .then(resp => setHabit(resp.data))
     .catch(error => alert(error.response.data.message))
-  }, [habit])
-  
+  }, [setHabit])
+
+  console.log(loading)
   function selectDays(day) {
     if (userHabits.days.includes(day)) {
       setUserHabits((prevState) => ({
@@ -39,11 +43,10 @@ export default function Habits() {
   }
 
   function submitForm(event){
-    event.preventDefault();
 
-    
+    event.preventDefault();
     setLoading(true)
-    
+
     if(userHabits.days.length > 0){
       axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", userHabits, config )
       .then(() => {((
@@ -54,8 +57,10 @@ export default function Habits() {
         setCreatingHabit(prevState => !prevState)})
 
       .catch(error => alert(error.response.data.message))
-      .finally(setLoading(false))
-      
+      .finally(() => {
+        console.log(loading)
+        setLoading(false)
+        console.log(loading)})
       setUserHabits({
         name: "",
         days: []})
@@ -118,7 +123,16 @@ export default function Habits() {
             <SaveButton
             disabled={loading}
             data-test="habit-create-save-btn"
-            type="submit">Salvar</SaveButton>
+            type="submit">{loading === true ? <ThreeDots
+              height="40" 
+              width="40" 
+              radius="10"
+              color="#FFFFFF" 
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}/> 
+              : "Salvar"}</SaveButton>
           </div>
         </form>
       </HabitDiv>)}
