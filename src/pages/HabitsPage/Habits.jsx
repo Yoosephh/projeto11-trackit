@@ -22,10 +22,9 @@ export default function Habits() {
     axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
     .then(resp => setHabit(resp.data))
     .catch(error => alert(error.response.data.message))
-  }, [setHabit])
+  }, [habit])
   
   function selectDays(day) {
-    console.log(userHabits, "selecionei um dia da semana")
     if (userHabits.days.includes(day)) {
       setUserHabits((prevState) => ({
         ...prevState,
@@ -41,17 +40,22 @@ export default function Habits() {
 
   function submitForm(event){
     event.preventDefault();
+
+    
     setLoading(true)
+    
     if(userHabits.days.length > 0){
       axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", userHabits, config )
       .then(() => {((
-        axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
-      .then(resp => setHabit(resp.data))
-      .catch(error => alert(error.response.data.message))
-      ))
-      setCreatingHabit(prevState => !prevState)})
+          axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
+            .then(resp => setHabit(resp.data))
+            .catch(error => alert(error.response.data.message))
+            ))
+        setCreatingHabit(prevState => !prevState)})
+
       .catch(error => alert(error.response.data.message))
       .finally(setLoading(false))
+      
       setUserHabits({
         name: "",
         days: []})

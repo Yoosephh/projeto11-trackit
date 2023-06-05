@@ -14,16 +14,17 @@ export default function DisplayHabits() {
 }
 
   function deleteHabit(index) {
-
-    axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit[index].id}`, config)
-    .then(()=> {
-      axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
-      .then(resp => {
-        setHabit(resp.data)})
-      .catch(error => alert(error.response.data.message))
-    })
-    .catch(err => alert(err.response.data.message))
-    
+    const confirm = window.confirm("Deseja mesmo deletar o hábito?")
+    if(confirm){
+      axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit[index].id}`, config)
+      .then(()=> {
+        axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config)
+        .then(resp => {
+          setHabit(resp.data)})
+        .catch(error => alert(error.response.data.message))
+      })
+      .catch(err => alert(err.response.data.message))
+    }
   }
 
   return (
